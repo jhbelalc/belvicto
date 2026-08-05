@@ -1,4 +1,6 @@
-# Horizons Web (belvicto.com)
+# Standard landing page for my Web (belvicto.com)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.0.0-blue.svg)](package.json)
 
 Small Vite + React app used for https://www.belvicto.com/.
 
@@ -96,4 +98,4 @@ If you want, I can update the remote default branch for you (I can create the re
 
 ## License
 
-Add your license here.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
