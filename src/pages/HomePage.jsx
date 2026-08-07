@@ -47,7 +47,7 @@ const DateTimeTicker = () => {
             times.push(acc / total);
         });
         // positions in vw for left edge of the element (returns to start)
-        const positions = ['2vw', '55vw', '20vw', '70vw', '35vw', '2vw'];
+        const positions = ['2vw']; // ['2vw', '55vw', '20vw', '70vw', '35vw', '2vw'];
         return { xKeys: positions, times, duration: total };
     }, []);
 
@@ -179,7 +179,7 @@ const ContactDialog = ({ open, onClose }) => {
                                     CONTACT ME
                                 </h2>
                                 <p className="mt-2 mb-6 font-mono text-[0.65rem] uppercase tracking-[0.35em] text-cyan-300/60">
-                                    Let&apos;s talk software
+                                    Use this to send me a message or directly to john@belvicto.com
                                 </p>
 
                                 <div className="space-y-3">
