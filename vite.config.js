@@ -402,6 +402,8 @@ export default defineConfig({
 		},
 	},
 	build: {
+		outDir: '../../dist/apps/web',
+		emptyOutDir: true,
 		rollupOptions: {
 			external: [
 				'@babel/parser',
