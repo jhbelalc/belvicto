@@ -249,6 +249,7 @@ const ContactDialog = ({ open, onClose }) => {
 const HomePage = () => {
     const reduce = useReducedMotion();
     const [contactOpen, setContactOpen] = useState(false);
+    const [logoFailed, setLogoFailed] = useState(false);
 
     // Wave loop: each word rises in, glows, then recedes; the whole
     // sequence loops so the text keeps washing in like the sea.
@@ -353,11 +354,21 @@ const HomePage = () => {
                         aria-label="Open contact form"
                         className="group relative rounded-full outline-none"
                     >
-                        <img
-                            src={LOGO}
-                            alt="Belvicto logo"
-                            className="h-24 w-24 cursor-pointer drop-shadow-[0_0_25px_rgba(0,229,255,0.55)] transition duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_40px_rgba(0,229,255,0.85)]"
-                        />
+                        {logoFailed ? (
+                            <span
+                                aria-label="Belvicto logo"
+                                className="flex h-24 w-24 items-center justify-center rounded-full border border-cyan-300/60 bg-[#081422] font-mono text-5xl font-semibold text-cyan-100 drop-shadow-[0_0_25px_rgba(0,229,255,0.55)] transition duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_40px_rgba(0,229,255,0.85)]"
+                            >
+                                B
+                            </span>
+                        ) : (
+                            <img
+                                src={LOGO}
+                                alt="Belvicto logo"
+                                onError={() => setLogoFailed(true)}
+                                className="h-24 w-24 cursor-pointer drop-shadow-[0_0_25px_rgba(0,229,255,0.55)] transition duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_40px_rgba(0,229,255,0.85)]"
+                            />
+                        )}
                         <span className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[0.55rem] uppercase tracking-[0.3em] text-cyan-300/0 transition duration-300 group-hover:text-cyan-300/70">
                             Contact me
                         </span>
