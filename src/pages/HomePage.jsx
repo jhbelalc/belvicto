@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { X, Send, Loader2 } from 'lucide-react';
 import pocketbaseClient from '@/lib/pocketbaseClient';
 
-const LOGO = 'https://horizons-cdn.hostinger.com/a3b2908a-c2fb-4ea7-a737-b53b007d3105/151aba82c6849ab52a5b95dc356ceb16.png';
+const LOGO = '/logo.png';
 
 const PARAGRAPH =
     'Successful digital transformation begins with informed decisions. With over two decades of experience designing, modernizing, and leading software initiatives across diverse industries, we guide organizations through technology change with a focus on scalability, performance, and AI-driven innovation. From legacy modernization to future-ready architectures, we provide the expertise needed to move forward with confidence.';
