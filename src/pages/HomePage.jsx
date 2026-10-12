@@ -91,9 +91,8 @@ const TopLinks = ({ onContact }) => {
         if (ip || loading) return;
         setLoading(true);
         try {
-            const data = await pocketbaseClient.send('/api/myip', {
-                method: 'GET',
-            });
+            const res = await fetch('/myip.php', { cache: 'no-store' });
+            const data = await res.json();
             setIp(data.ip || 'Unavailable');
         } catch {
             setIp('Unavailable');
