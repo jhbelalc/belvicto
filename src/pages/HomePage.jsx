@@ -79,6 +79,51 @@ const DateTimeTicker = () => {
     );
 };
 
+const LINK_CLASS =
+    'block cursor-pointer whitespace-nowrap bg-transparent p-0 text-left font-mono text-[0.7rem] font-semibold uppercase tracking-[0.35em] text-cyan-200/80 outline-none transition hover:text-cyan-100 focus-visible:text-cyan-100';
+const LINK_STYLE = { textShadow: '0 0 10px rgba(0,229,255,0.5)' };
+
+const TopLinks = ({ onContact }) => {
+    const [ip, setIp] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const showIp = async () => {
+        if (ip || loading) return;
+        setLoading(true);
+        try {
+            const data = await pocketbaseClient.send('/api/myip', {
+                method: 'GET',
+            });
+            setIp(data.ip || 'Unavailable');
+        } catch {
+            setIp('Unavailable');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="absolute left-[2vw] top-9 z-20 flex flex-col items-start gap-1.5">
+            <button
+                type="button"
+                onClick={showIp}
+                className={LINK_CLASS}
+                style={LINK_STYLE}
+            >
+                {loading ? '...' : ip ?? 'Show my IP'}
+            </button>
+            <button
+                type="button"
+                onClick={onContact}
+                className={LINK_CLASS}
+                style={LINK_STYLE}
+            >
+                Contact
+            </button>
+        </div>
+    );
+};
+
 const NEON_INPUT =
     'w-full rounded-lg border border-cyan-400/25 bg-[#081422]/70 px-4 py-3 font-mono text-sm text-cyan-50 placeholder:text-cyan-200/30 outline-none transition focus:border-cyan-300/70 focus:shadow-[0_0_18px_rgba(0,229,255,0.35)]';
 
@@ -288,6 +333,7 @@ const HomePage = () => {
     return (
         <main className="relative min-h-[100dvh] overflow-hidden bg-[#04070f] text-[#eafcff]">
             <DateTimeTicker />
+            <TopLinks onContact={() => setContactOpen(true)} />
             {/* neon ambient background */}
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-cyan-500/20 blur-[120px]" />
