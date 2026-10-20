@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { X, Send, Loader2 } from 'lucide-react';
-import pocketbaseClient from '@/lib/pocketbaseClient';
 
 const LOGO = '/logo.png';
 
@@ -149,13 +148,18 @@ const ContactDialog = ({ open, onClose }) => {
         }
         setStatus('sending');
         try {
-            await pocketbaseClient.collection('contact_messages').create({
-                name: form.name.trim(),
-                whatsapp: form.whatsapp.trim(),
-                cell: form.cell.trim(),
-                email: form.email.trim(),
-                message: form.message.trim(),
+            const res = await fetch('/contact.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: form.name.trim(),
+                    whatsapp: form.whatsapp.trim(),
+                    cell: form.cell.trim(),
+                    email: form.email.trim(),
+                    message: form.message.trim(),
+                }),
             });
+            if (!res.ok) throw new Error('Send failed');
             setStatus('sent');
         } catch (err) {
             setStatus('idle');
