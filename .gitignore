@@ -13,3 +13,5 @@ build/
 *.local
 *.log
 /.pnp\n.pnp.js
+# SMTP credentials live only on the server
+public/config.php
