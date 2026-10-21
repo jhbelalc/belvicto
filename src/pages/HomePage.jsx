@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { X, Send, Loader2 } from 'lucide-react';
 
+import NeonBackground from '@/components/NeonBackground';
+
 const LOGO = '/logo.png';
 
 const PARAGRAPH =
@@ -84,10 +86,20 @@ const LINK_STYLE = { textShadow: '0 0 10px rgba(0,229,255,0.5)' };
 
 const TopLinks = ({ onContact }) => {
     const [ip, setIp] = useState(null);
+    const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const showIp = async () => {
-        if (ip || loading) return;
+    // Click toggles the IP; it is fetched once and reused afterwards.
+    const toggleIp = async () => {
+        if (loading) return;
+        if (visible) {
+            setVisible(false);
+            return;
+        }
+        if (ip) {
+            setVisible(true);
+            return;
+        }
         setLoading(true);
         try {
             const res = await fetch('/myip.php', { cache: 'no-store' });
@@ -97,6 +109,7 @@ const TopLinks = ({ onContact }) => {
             setIp('Unavailable');
         } finally {
             setLoading(false);
+            setVisible(true);
         }
     };
 
@@ -104,11 +117,11 @@ const TopLinks = ({ onContact }) => {
         <div className="absolute left-[2vw] top-9 z-20 flex flex-col items-start gap-1.5">
             <button
                 type="button"
-                onClick={showIp}
+                onClick={toggleIp}
                 className={LINK_CLASS}
                 style={LINK_STYLE}
             >
-                {loading ? '...' : ip ?? 'Show my IP'}
+                {loading ? '...' : visible ? ip : 'Show my IP'}
             </button>
             <button
                 type="button"
@@ -118,6 +131,24 @@ const TopLinks = ({ onContact }) => {
             >
                 Contact
             </button>
+            <a
+                href="https://jhbelalc.github.io/jhbelalc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={LINK_CLASS}
+                style={LINK_STYLE}
+            >
+                Portfolio
+            </a>
+            <a
+                href="/projects"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={LINK_CLASS}
+                style={LINK_STYLE}
+            >
+                Projects
+            </a>
         </div>
     );
 };
@@ -337,57 +368,7 @@ const HomePage = () => {
         <main className="relative min-h-[100dvh] overflow-hidden bg-[#04070f] text-[#eafcff]">
             <DateTimeTicker />
             <TopLinks onContact={() => setContactOpen(true)} />
-            {/* neon ambient background */}
-            <div className="pointer-events-none absolute inset-0">
-                <div className="absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-cyan-500/20 blur-[120px]" />
-                <div className="absolute bottom-[-12rem] left-[-8rem] h-[32rem] w-[32rem] rounded-full bg-fuchsia-600/20 blur-[130px]" />
-                <div className="absolute bottom-[-14rem] right-[-6rem] h-[34rem] w-[34rem] rounded-full bg-blue-500/20 blur-[130px]" />
-            </div>
-
-            {/* subtle grid */}
-            <div
-                className="pointer-events-none absolute inset-0 opacity-[0.08]"
-                style={{
-                    backgroundImage:
-                        'linear-gradient(rgba(0,229,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.6) 1px, transparent 1px)',
-                    backgroundSize: '54px 54px',
-                    maskImage:
-                        'radial-gradient(ellipse at center, black 30%, transparent 78%)',
-                }}
-            />
-
-            {/* animated wave lines at the base */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-64 overflow-hidden">
-                {[0, 1, 2].map((n) => (
-                    <motion.div
-                        key={n}
-                        className="absolute inset-x-[-20%] bottom-0 h-56 rounded-[100%] border-t"
-                        style={{
-                            borderColor:
-                                n === 0
-                                    ? 'rgba(0,229,255,0.35)'
-                                    : n === 1
-                                    ? 'rgba(120,80,255,0.28)'
-                                    : 'rgba(255,60,190,0.2)',
-                            bottom: `${-140 - n * 26}px`,
-                            boxShadow:
-                                n === 0
-                                    ? '0 -10px 60px rgba(0,229,255,0.25)'
-                                    : 'none',
-                        }}
-                        animate={
-                            reduce
-                                ? {}
-                                : { x: ['-4%', '4%', '-4%'], y: [0, -10, 0] }
-                        }
-                        transition={{
-                            duration: 8 + n * 2,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                        }}
-                    />
-                ))}
-            </div>
+            <NeonBackground />
 
             <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-4xl flex-col items-center justify-center px-6 py-20 text-center">
                 {/* logo + brand */}
