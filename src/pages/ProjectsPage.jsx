@@ -69,7 +69,35 @@ const ProjectCard = ({ repo, index }) => (
     </motion.li>
 );
 
+const OlderProjectsCard = ({ year, count }) => (
+    <li className="rounded-xl border border-dashed border-cyan-400/25 bg-[#050b16]/50 p-6 text-left transition hover:border-cyan-300/60 hover:shadow-[0_0_30px_rgba(0,229,255,0.25)] sm:col-span-2">
+        <a
+            href={PROFILE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="neon-text font-mono text-2xl font-semibold tracking-wide transition hover:brightness-125 sm:text-3xl"
+        >
+            Projects before {year}
+        </a>
+        <p className="mt-3 text-sm font-light leading-relaxed text-cyan-50/80">
+            {count} older {count === 1 ? 'project' : 'projects'} live on my
+            GitHub profile.
+        </p>
+        <a
+            href={PROFILE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${NEON_LINK} mt-4 inline-flex items-center gap-2`}
+            style={NEON_GLOW}
+        >
+            GitHub <ExternalLink className="h-3 w-3" strokeWidth={1.75} />
+        </a>
+    </li>
+);
+
 const ProjectsPage = () => {
+    // Show the current year and the previous one; older repos are grouped.
+    const cutoffYear = new Date().getFullYear() - 1;
     const [repos, setRepos] = useState([]);
     const [status, setStatus] = useState('loading');
 
@@ -97,6 +125,10 @@ const ProjectsPage = () => {
         })();
         return () => controller.abort();
     }, []);
+
+    const isRecent = (r) => new Date(r.pushed_at).getFullYear() >= cutoffYear;
+    const recent = repos.filter(isRecent);
+    const olderCount = repos.length - recent.length;
 
     return (
         <main className="relative min-h-[100dvh] overflow-hidden bg-[#04070f] text-[#eafcff]">
@@ -149,13 +181,19 @@ const ProjectsPage = () => {
                     )}
                     {status === 'ready' && (
                         <ul className="grid gap-5 sm:grid-cols-2">
-                            {repos.map((repo, i) => (
+                            {recent.map((repo, i) => (
                                 <ProjectCard
                                     key={repo.id}
                                     repo={repo}
                                     index={i}
                                 />
                             ))}
+                            {olderCount > 0 && (
+                                <OlderProjectsCard
+                                    year={cutoffYear}
+                                    count={olderCount}
+                                />
+                            )}
                         </ul>
                     )}
                 </section>
