@@ -149,6 +149,15 @@ const TopLinks = ({ onContact }) => {
             >
                 Projects
             </a>
+            <a
+                href="/highlights"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={LINK_CLASS}
+                style={LINK_STYLE}
+            >
+                Highlights
+            </a>
         </div>
     );
 };
