@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { X, Send, Loader2 } from 'lucide-react';
 
@@ -172,9 +172,15 @@ const ContactDialog = ({ open, onClose }) => {
         cell: '',
         email: '',
         message: '',
+        website: '', // honeypot: real users never see or fill this
     });
     const [status, setStatus] = useState('idle');
     const [error, setError] = useState('');
+    const openedAt = useRef(Date.now());
+
+    useEffect(() => {
+        if (open) openedAt.current = Date.now();
+    }, [open]);
 
     const update = (key) => (e) =>
         setForm((f) => ({ ...f, [key]: e.target.value }));
@@ -186,6 +192,7 @@ const ContactDialog = ({ open, onClose }) => {
             setError('Please fill in name, email and message.');
             return;
         }
+        if (status === 'sending') return;
         setStatus('sending');
         try {
             const res = await fetch('/contact.php', {
@@ -197,8 +204,15 @@ const ContactDialog = ({ open, onClose }) => {
                     cell: form.cell.trim(),
                     email: form.email.trim(),
                     message: form.message.trim(),
+                    website: form.website,
+                    elapsed: Date.now() - openedAt.current,
                 }),
             });
+            if (res.status === 429) {
+                setStatus('idle');
+                setError('Too many messages sent. Please try again later.');
+                return;
+            }
             if (!res.ok) throw new Error('Send failed');
             setStatus('sent');
         } catch (err) {
@@ -210,7 +224,14 @@ const ContactDialog = ({ open, onClose }) => {
     const handleClose = () => {
         onClose();
         setTimeout(() => {
-            setForm({ name: '', whatsapp: '', cell: '', email: '', message: '' });
+            setForm({
+                name: '',
+                whatsapp: '',
+                cell: '',
+                email: '',
+                message: '',
+                website: '',
+            });
             setStatus('idle');
             setError('');
         }, 300);
@@ -271,6 +292,16 @@ const ContactDialog = ({ open, onClose }) => {
                                 </p>
 
                                 <div className="space-y-3">
+                                    <input
+                                        type="text"
+                                        name="website"
+                                        tabIndex={-1}
+                                        autoComplete="off"
+                                        aria-hidden="true"
+                                        value={form.website}
+                                        onChange={update('website')}
+                                        className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                                    />
                                     <input
                                         className={NEON_INPUT}
                                         placeholder="Name *"
