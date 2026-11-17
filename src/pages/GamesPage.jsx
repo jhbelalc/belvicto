@@ -15,26 +15,37 @@ const TypedQuote = () => {
     const reduce = useReducedMotion();
     const [count, setCount] = useState(0);
 
+    // Type one letter at a time; once the line is complete, hold it,
+    // then start over on top of the faint gray copy.
     useEffect(() => {
-        if (reduce || count >= QUOTE.length) return undefined;
-        const id = setTimeout(() => setCount((c) => c + 1), 70);
+        if (reduce) return undefined;
+        const done = count >= QUOTE.length;
+        const id = setTimeout(
+            () => setCount(done ? 0 : count + 1),
+            done ? 2600 : 90
+        );
         return () => clearTimeout(id);
     }, [count, reduce]);
 
-    const shown = reduce ? QUOTE : QUOTE.slice(0, count);
+    const typed = reduce ? QUOTE.length : count;
 
     return (
         <p
             aria-label={QUOTE}
-            className="mx-auto min-h-[3.5rem] max-w-xl font-mono text-base leading-relaxed text-cyan-50/90 sm:min-h-0 sm:text-lg"
+            className="mx-auto max-w-xl font-mono text-base leading-relaxed sm:text-lg"
         >
-            <span aria-hidden="true">{shown}</span>
+            {/* The full line is always laid out, so retyping never shifts it. */}
+            <span aria-hidden="true" className="text-cyan-50/90">
+                {QUOTE.slice(0, typed)}
+            </span>
             {!reduce && (
-                <span
-                    aria-hidden="true"
-                    className="ml-0.5 inline-block h-[1.1em] w-[0.55em] translate-y-[0.2em] animate-pulse bg-cyan-300/80"
-                />
+                <span aria-hidden="true" className="relative">
+                    <span className="absolute left-0 top-[0.15em] h-[1.1em] w-[0.55em] animate-pulse bg-cyan-300/70" />
+                </span>
             )}
+            <span aria-hidden="true" className="text-gray-300/25">
+                {QUOTE.slice(typed)}
+            </span>
         </p>
     );
 };
