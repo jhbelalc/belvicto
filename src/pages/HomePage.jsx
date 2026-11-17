@@ -158,6 +158,16 @@ const TopLinks = ({ onContact }) => {
             >
                 Highlights
             </a>
+            <a
+                href="/play"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="All work and no play makes Jack a dull boy"
+                className={LINK_CLASS}
+                style={LINK_STYLE}
+            >
+                All work &amp; no play…
+            </a>
         </div>
     );
 };

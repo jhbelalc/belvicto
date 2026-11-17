@@ -4,6 +4,7 @@ import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
 import HighlightsPage from './pages/HighlightsPage';
+import GamesPage from './pages/GamesPage';
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/highlights" element={<HighlightsPage />} />
+                <Route path="/play" element={<GamesPage />} />
             </Routes>
         </Router>
     );
