@@ -16,4 +16,18 @@ export const GAMES = [
             'Plays in the browser, nothing to install.',
         ],
     },
+    {
+        id: 'labyrinth',
+        name: 'Labyrinth',
+        tagline: '3D memory maze',
+        url: 'https://www.belvicto.com/games/labyrinth/',
+        icon: '/images/labyrinth.svg',
+        comingSoon: true, // remove once the game is live at `url`
+        intro: 'Take a quick look at the way out, then find it from memory. Labyrinth shows you the maze from above with the escape route marked, then drops you inside it in 3D. Walk the corridors and retrace the path: you get just enough time to leave, or you lose.',
+        facts: [
+            'Study the maze from above while the way out is shown.',
+            'Then walk it in first-person 3D, with only your memory to guide you.',
+            'Find the exit before the time runs out.',
+        ],
+    },
 ];

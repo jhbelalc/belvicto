@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Play } from 'lucide-react';
+import { Clock, Play } from 'lucide-react';
 import NeonBackground from '@/components/NeonBackground';
 import { GAMES } from '@/data/games';
 
@@ -67,6 +67,11 @@ const GameCard = ({ game }) => (
                 <h2 className="neon-text font-mono text-3xl font-semibold tracking-wide sm:text-4xl">
                     {game.name}
                 </h2>
+                {game.comingSoon && (
+                    <span className="mt-2 inline-block rounded-full border border-amber-300/50 bg-amber-300/10 px-3 py-1 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.3em] text-amber-200">
+                        Coming soon
+                    </span>
+                )}
                 <p className="mt-1 font-mono text-[0.65rem] uppercase tracking-[0.3em] text-cyan-300/70">
                     {game.tagline}
                 </p>
@@ -86,15 +91,22 @@ const GameCard = ({ game }) => (
             ))}
         </ul>
 
-        <a
-            href={game.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-7 inline-flex items-center gap-2 rounded-lg border border-cyan-400/50 bg-cyan-400/10 px-6 py-3 font-mono text-xs uppercase tracking-[0.3em] text-cyan-100 transition hover:bg-cyan-400/20 hover:shadow-[0_0_24px_rgba(0,229,255,0.45)]"
-        >
-            <Play className="h-4 w-4" strokeWidth={1.75} />
-            Play {game.name}
-        </a>
+        {game.comingSoon ? (
+            <span className="mt-7 inline-flex items-center gap-2 rounded-lg border border-cyan-400/20 px-6 py-3 font-mono text-xs uppercase tracking-[0.3em] text-cyan-200/50">
+                <Clock className="h-4 w-4" strokeWidth={1.75} />
+                Coming soon
+            </span>
+        ) : (
+            <a
+                href={game.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-7 inline-flex items-center gap-2 rounded-lg border border-cyan-400/50 bg-cyan-400/10 px-6 py-3 font-mono text-xs uppercase tracking-[0.3em] text-cyan-100 transition hover:bg-cyan-400/20 hover:shadow-[0_0_24px_rgba(0,229,255,0.45)]"
+            >
+                <Play className="h-4 w-4" strokeWidth={1.75} />
+                Play {game.name}
+            </a>
+        )}
     </motion.article>
 );
 

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Labyrinth</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b2530"/>
+      <stop offset="1" stop-color="#050b16"/>
+    </linearGradient>
+    <linearGradient id="trail" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#f97316"/>
+      <stop offset="1" stop-color="#fcd34d"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <path d="M64 64L128 64M64 448L128 448M128 64L192 64M192 64L256 64M192 448L256 448M256 64L320 64M256 448L320 448M320 448L384 448M384 64L448 64M384 448L448 448M64 64L64 448M448 64L448 448M128 64L128 128M128 128L192 128M192 128L256 128M320 128L384 128M64 192L128 192M192 128L192 192M320 128L320 192M256 192L320 192M320 192L384 192M192 192L192 256M128 256L192 256M256 192L256 256M384 192L384 256M384 256L448 256M128 256L128 320M128 320L192 320M192 320L256 320M320 256L320 320M256 320L320 320M320 320L384 320M128 320L128 384M256 320L256 384M320 384L384 384M192 384L192 448M320 384L320 448" fill="none" stroke="#22d3ee" stroke-width="12" stroke-linecap="square" stroke-linejoin="miter" opacity="0.9" filter="url(#glow)"/>
+  <g filter="url(#glow)">
+    <path d="M160 478L160 416L160 352L224 352L224 416L288 416L288 352L416 352L416 288L352 288L352 224L288 224L288 288L224 288L224 160L288 160L288 96L352 96L352 46" fill="none" stroke="url(#trail)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M352 24 L330 52 L374 52 Z" fill="#fcd34d" stroke="#fcd34d" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+</svg>
