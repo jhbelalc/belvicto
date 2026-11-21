@@ -107,6 +107,38 @@ const HighlightCard = ({ item }) => (
             ))}
         </div>
 
+        {item.demo && (
+            <div className="mt-8 rounded-xl border border-cyan-400/25 bg-[#081422]/60 p-5">
+                <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">
+                    Online demo
+                </h3>
+                <a
+                    href={item.demo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${NEON_LINK} mt-3 inline-flex items-center gap-2 normal-case tracking-[0.15em]`}
+                    style={NEON_GLOW}
+                >
+                    {item.demo.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}{' '}
+                    <ExternalLink className="h-3 w-3" strokeWidth={1.75} />
+                </a>
+                <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+                    <dt className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-cyan-300/70 self-center">
+                        User
+                    </dt>
+                    <dd className="break-all font-mono text-cyan-50/90 select-all">
+                        {item.demo.user}
+                    </dd>
+                    <dt className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-cyan-300/70 self-center">
+                        Password
+                    </dt>
+                    <dd className="break-all font-mono text-cyan-50/90 select-all">
+                        {item.demo.password}
+                    </dd>
+                </dl>
+            </div>
+        )}
+
         {item.outro && (
             <p className="mt-6 text-sm font-light leading-relaxed text-cyan-50/70">
                 {item.outro}

@@ -64,4 +64,52 @@ export const HIGHLIGHTS = [
             { id: 'qO7Mhn5W89w', type: 'video', title: 'piRadar video' },
         ],
     },
+    {
+        id: 'mifacweb',
+        name: 'MifacWeb',
+        tagline: 'Sales, inventory and point of sale',
+        logo: '/images/mifacweb.svg',
+        intro: 'MifacWeb is a sales and inventory system with a point of sale, built for small businesses that need to get up and running quickly. It runs in the browser, on one computer or across several stations, and keeps the owner informed by email about what happens in the shop.',
+        sections: [
+            {
+                title: 'Sell and control stock',
+                items: [
+                    'Point of sale for fast checkout at the counter.',
+                    'Sales and inventory in one place, so stock follows every sale.',
+                    'Quick to set up and learn, made for small teams.',
+                ],
+            },
+            {
+                title: 'Email alerts for key events',
+                items: [
+                    'First sale of the day.',
+                    'Closing of the day.',
+                    'Movements in the cash register.',
+                    'Login audit, and other events.',
+                ],
+            },
+            {
+                title: 'Install it your way',
+                items: [
+                    'Locally on a Windows or Linux computer.',
+                    'Work directly on the server PC, or connect several stations over Wi-Fi.',
+                    'Or deploy it to a Windows or Linux VPS.',
+                ],
+            },
+            {
+                title: 'Built with',
+                items: [
+                    '.NET 10',
+                    'ASP.NET Core and Blazor',
+                    'MudBlazor',
+                    'EF Core with SQLite',
+                ],
+            },
+        ],
+        demo: {
+            url: 'https://demo.mifac.tech/',
+            user: 'publicdemo@belvicto.com',
+            password: 'publicdemo2026',
+        },
+    },
 ];
