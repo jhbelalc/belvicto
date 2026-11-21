@@ -6,9 +6,10 @@ export const HIGHLIGHTS = [
     {
         id: 'piradar',
         name: 'piRadar',
-        tagline: 'Expense tracker for iPhone and iPad',
+        tagline: 'Expense tracker for iPhone, iPad and Android',
         logo: '/images/piradar.png',
         storeUrl: 'https://apps.apple.com/us/app/piradar-expense-tracker/id6817079629',
+        playUrl: 'https://play.google.com/store/apps/details?id=com.jhbelalc.piradar',
         intro: 'piRadar is a personal finance app that keeps everything on your phone. No accounts, no cloud and no internet needed: your transactions, receipts and reports never leave your device.',
         sections: [
             {
@@ -57,7 +58,7 @@ export const HIGHLIGHTS = [
                 ],
             },
         ],
-        outro: 'Also: light, dark or system theme, in English or Spanish, and a layout that adapts to iPhone and iPad.',
+        outro: 'Also: light, dark or system theme, in English or Spanish, and a layout that adapts to phones and tablets.',
         videos: [
             { id: 'gROeHvwQ0Js', type: 'short', title: 'piRadar short 1' },
             { id: 'KENa9gr38fs', type: 'short', title: 'piRadar short 2' },

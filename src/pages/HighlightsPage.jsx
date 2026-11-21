@@ -70,17 +70,33 @@ const HighlightCard = ({ item }) => (
                 <p className="mt-1 font-mono text-[0.65rem] uppercase tracking-[0.3em] text-cyan-300/70">
                     {item.tagline}
                 </p>
-                {item.storeUrl && (
-                    <a
-                        href={item.storeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${NEON_LINK} mt-3 inline-flex items-center gap-2`}
-                        style={NEON_GLOW}
-                    >
-                        App Store{' '}
-                        <ExternalLink className="h-3 w-3" strokeWidth={1.75} />
-                    </a>
+                {(item.storeUrl || item.playUrl) && (
+                    <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+                        {item.storeUrl && (
+                            <a
+                                href={item.storeUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`${NEON_LINK} inline-flex items-center gap-2`}
+                                style={NEON_GLOW}
+                            >
+                                App Store{' '}
+                                <ExternalLink className="h-3 w-3" strokeWidth={1.75} />
+                            </a>
+                        )}
+                        {item.playUrl && (
+                            <a
+                                href={item.playUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`${NEON_LINK} inline-flex items-center gap-2`}
+                                style={NEON_GLOW}
+                            >
+                                Google Play{' '}
+                                <ExternalLink className="h-3 w-3" strokeWidth={1.75} />
+                            </a>
+                        )}
+                    </div>
                 )}
             </div>
         </div>
