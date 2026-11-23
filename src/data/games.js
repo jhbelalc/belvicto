@@ -9,6 +9,9 @@ export const GAMES = [
         tagline: 'Arcade climber for phone and desktop',
         url: 'https://www.belvicto.com/games/wasp/',
         icon: 'https://www.belvicto.com/games/wasp/icon-192.png',
+        storeUrl: 'https://apps.apple.com/us/app/wasp-escape-the-shower/id6836850966',
+        // Not on Google Play yet: shows the early tester popup. Replace with `playUrl` once published.
+        playTesterEmail: 'belvictodeveloper@gmail.com',
         intro: 'Help a small wasp climb 33 steps up a wet window pane. Raindrops slide down and bubbles drift across the glass: pick your lane, keep moving and do not get hit.',
         facts: [
             'Tap or click left, center or right to choose your lane.',

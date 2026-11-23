@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Clock, Play } from 'lucide-react';
+import { Clock, ExternalLink, Play } from 'lucide-react';
 import NeonBackground from '@/components/NeonBackground';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
 import { GAMES } from '@/data/games';
 
 const NEON_LINK =
@@ -50,6 +57,68 @@ const TypedQuote = () => {
     );
 };
 
+const STORE_LINK = `${NEON_LINK} inline-flex items-center gap-2`;
+
+// Stands in for the Google Play link while the game is in closed testing.
+const EarlyTesterDialog = ({ game }) => (
+    <Dialog>
+        <DialogTrigger type="button" className={STORE_LINK} style={NEON_GLOW}>
+            Google Play
+        </DialogTrigger>
+        <DialogContent className="w-[calc(100%-2rem)] rounded-2xl border-cyan-400/30 bg-[#050b16] p-6 text-[#eafcff] shadow-[0_0_40px_rgba(0,229,255,0.2)] sm:rounded-2xl sm:p-8">
+            <DialogTitle className="neon-text pr-6 font-mono text-xl font-semibold leading-snug tracking-wide">
+                {game.name} on Google Play
+            </DialogTitle>
+            <DialogDescription className="text-base font-light leading-relaxed text-cyan-50/90">
+                If you want to be an early tester send an email to{' '}
+                <a
+                    href={`mailto:${game.playTesterEmail}?subject=${encodeURIComponent(`${game.name} early tester access`)}`}
+                    className="break-words text-cyan-200 underline underline-offset-4 transition hover:text-cyan-100"
+                >
+                    {game.playTesterEmail}
+                </a>{' '}
+                requesting access.
+            </DialogDescription>
+        </DialogContent>
+    </Dialog>
+);
+
+const StoreLinks = ({ game }) => {
+    const hasPlay = game.playUrl || game.playTesterEmail;
+    if (!game.storeUrl && !hasPlay) return null;
+
+    return (
+        <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+            {game.storeUrl && (
+                <a
+                    href={game.storeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={STORE_LINK}
+                    style={NEON_GLOW}
+                >
+                    App Store{' '}
+                    <ExternalLink className="h-3 w-3" strokeWidth={1.75} />
+                </a>
+            )}
+            {game.playUrl ? (
+                <a
+                    href={game.playUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={STORE_LINK}
+                    style={NEON_GLOW}
+                >
+                    Google Play{' '}
+                    <ExternalLink className="h-3 w-3" strokeWidth={1.75} />
+                </a>
+            ) : (
+                game.playTesterEmail && <EarlyTesterDialog game={game} />
+            )}
+        </div>
+    );
+};
+
 const GameCard = ({ game }) => (
     <motion.article
         initial={{ opacity: 0, y: 18 }}
@@ -75,6 +144,7 @@ const GameCard = ({ game }) => (
                 <p className="mt-1 font-mono text-[0.65rem] uppercase tracking-[0.3em] text-cyan-300/70">
                     {game.tagline}
                 </p>
+                <StoreLinks game={game} />
             </div>
         </div>
 
